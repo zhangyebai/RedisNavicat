@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_HPP
+﻿#ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
@@ -25,6 +25,11 @@ private:
 
 private:
     bool m_wndMax = false;
+    bool m_wndTop = false;
+
+private:
+    QString m_btnTop_normal;
+    QString m_btnTop_handled;
 };
 
 #endif // MAINWINDOW_HPP

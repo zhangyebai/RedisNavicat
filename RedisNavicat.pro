@@ -10,8 +10,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = RedisNavicat
 TEMPLATE = app
+RC_ICONS = redis.ico
+
+
 win32{
+    QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"
     INCLUDEPATH += "C:/Program Files (x86)/Windows Kits/10/Include/10.0.10240.0/ucrt"
+    LIBS += -lUser32
     contains(QMAKE_HOST.arch, x86_64){
         LIBS += -L"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.10240.0/ucrt/x64"
     }else{
@@ -35,10 +40,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src\main.cpp \
-        src\MainWindow.cpp
+        src\MainWindow.cpp \
+    src/Common.cpp
 
 HEADERS += \
-        src\MainWindow.hpp
+        src\MainWindow.hpp \
+    src/Common.hpp
 
 FORMS += \
         src\mainwindow.ui
