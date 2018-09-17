@@ -1,0 +1,25 @@
+QWidget#leftWnd{
+	background-color:#292b2e;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+
+QWidget#topListWnd{
+	background-color:#eeeae8;
+}
+
+QWidget#listWnd{
+	background-color:#eeeae8;
+}
+
+QWidget#topWnd{
+	background-color:#f5f5f5;
+	border-top-right-radius:5px;
+}
+
+
+
+QWidget#stackWnd{
+	background-color:#f5f5f5;
+	border-bottom-right-radius:5px;
+}
