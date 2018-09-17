@@ -1,0 +1,9 @@
+QPushButton#BtnTop{
+	border-image:url(./resource/btn/top-normal.png);
+}
+QPushButton#BtnTop:hover{
+	border-image:url(./resource/btn/top-hover.png);
+}
+QPushButton#BtnTop:pressed{
+	border-image:url(./resource/btn/top-pressed.png);
+}

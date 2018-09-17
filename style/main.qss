@@ -23,3 +23,44 @@ QWidget#stackWnd{
 	background-color:#f5f5f5;
 	border-bottom-right-radius:5px;
 }
+
+
+QPushButton#BtnClose{
+	border-image:url(./resource/btn/close-normal.png);
+}
+QPushButton#BtnClose:hover{
+	border-image:url(./resource/btn/close-hover.png);
+}
+QPushButton#BtnClose:pressed{
+	border-image:url(./resource/btn/close-pressed.png);
+}
+
+QPushButton#BtnMax{
+	border-image:url(./resource/btn/max-normal.png);
+}
+QPushButton#BtnMax:hover{
+	border-image:url(./resource/btn/max-hover.png);
+}
+QPushButton#BtnMax:pressed{
+	border-image:url(./resource/btn/max-pressed.png);
+}
+
+QPushButton#BtnMin{
+	border-image:url(./resource/btn/min-normal.png);
+}
+QPushButton#BtnMin:hover{
+	border-image:url(./resource/btn/min-hover.png);
+}
+QPushButton#BtnMin:pressed{
+	border-image:url(./resource/btn/min-pressed.png);
+}
+
+QPushButton#BtnTop{
+	border-image:url(./resource/btn/top-normal.png);
+}
+QPushButton#BtnTop:hover{
+	border-image:url(./resource/btn/top-hover.png);
+}
+QPushButton#BtnTop:pressed{
+	border-image:url(./resource/btn/top-pressed.png);
+}
