@@ -4,9 +4,7 @@
 //#define __CPP_REDIS_USE_CUSTOM_TCP_CLIENT
 
 
-#include "Common.hpp"
-#include "hpp/cpp_redis/cpp_redis"
-#include "SessionItem.hpp"
+
 
 #ifdef Q_OS_WIN
 #include <WinSock2.h>
@@ -16,6 +14,9 @@
 #include <QDebug>
 #include <QDir>
 #include <QListWidgetItem>
+#include <QMovie>
+
+#include "time.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -52,6 +53,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+#include <QHBoxLayout>
 void MainWindow::initMainWindow()
 {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
@@ -64,8 +66,27 @@ void MainWindow::initMainWindow()
     this->m_btnTop_normal = Common::read(base_dir + QString(QStringLiteral("/style/top.qss")));
     this->m_btnTop_handled = Common::read(base_dir + QString(QStringLiteral("/style/top-handled.qss")));
     auto item = new QListWidgetItem(this->ui->listWnd);
+    //this->ui->listWnd->setItem
+    item->setFlags(item->flags() | Qt::NoItemFlags);
+    item->setSizeHint(QSize(this->ui->listWnd->size().width(), 80));
     this->ui->listWnd->addItem(item);
-    this->ui->listWnd->setItemWidget(item, new SessionItem());
+    this->ui->listWnd->setItemWidget(item, new SessionItem(this->ui->listWnd));
+    auto movie = new QMovie(base_dir + QString(QStringLiteral("/resource/image/doge.gif")));
+    this->ui->photoLabel->setMovie(movie);
+    movie->setScaledSize(this->ui->photoLabel->size());
+    movie->setCacheMode(QMovie::CacheAll);
+    movie->start();
+    //QMovie::state()
+    QObject::connect(movie, &QMovie::finished, this, [movie](){
+        movie->start();
+    });
+
+    auto ctx = new Context(this->ui->stackWnd);
+    //ctx->resize(this->ui->stackWnd->frameSize());
+    qDebug() << this->ui->stackWnd->size() << this->size();
+    //this->ui->stackWnd->setLayout(layout);
+    this->ui->stackWnd->addWidget(ctx);
+    this->ui->stackWnd->setCurrentWidget(ctx);
 }
 
 void MainWindow::initMainSignals()

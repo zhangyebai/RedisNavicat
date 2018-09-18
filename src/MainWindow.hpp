@@ -3,6 +3,22 @@
 
 #include <QMainWindow>
 
+
+#include "Common.hpp"
+#include "hpp/cpp_redis/cpp_redis"
+#include "SessionItem.hpp"
+#include "Context.hpp"
+#include <string>
+#include <ctime>
+
+
+class Session{
+
+
+public:
+    std::time_t m_latest;   //最后会话时间
+};
+
 namespace Ui {
 class MainWindow;
 }

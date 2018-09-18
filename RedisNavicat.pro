@@ -66,7 +66,8 @@ SOURCES += \
     src/cpp/tacopie/utils/thread_pool.cpp \
     src/cpp/tacopie/utils/tacopie_logger.cpp \
     src/cpp/tacopie/network/tacopie_tcp_client.cpp \
-    src/SessionItem.cpp
+    src/SessionItem.cpp \
+    src/Context.cpp
     
 
 
@@ -104,14 +105,17 @@ HEADERS += \
     src/hpp/tacopie/tacopie \
     src/hpp/tacopie/utils/tacopie_logger.hpp \
     src/hpp/tacopie/network/tacopie_tcp_client.hpp \
-    src/SessionItem.hpp
+    src/SessionItem.hpp \
+    src/Context.hpp \
+    src/time.hpp
     
 
 
 FORMS += \
         src\mainwindow.ui \
-    src/SessionItem.ui
+    src/SessionItem.ui \
+    src/Context.ui
 
 
-CONFIG += c++11
+CONFIG += c++14
 CONFIG += no_batch
