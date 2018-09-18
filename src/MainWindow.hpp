@@ -17,6 +17,8 @@ public:
 private:
     void initMainWindow();
     void initMainSignals();
+    void onStart();
+    void onClose();
 private:
     Ui::MainWindow *ui;
 

@@ -6,6 +6,7 @@
 
 #include "Common.hpp"
 #include "hpp/cpp_redis/cpp_redis"
+#include "SessionItem.hpp"
 
 #ifdef Q_OS_WIN
 #include <WinSock2.h>
@@ -14,6 +15,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QListWidgetItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,15 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->initMainWindow();
     this->initMainSignals();
-#ifdef Q_OS_WIN
-    WORD version = MAKEWORD(2, 2);
-    WSADATA data = { 0 };
 
-    if (WSAStartup(version, &data) != 0) {
-        qDebug() << "windows network init failed.";
-    }
-#endif
-    qDebug() << "start" ;
+    /*qDebug() << "start" ;
     cpp_redis::active_logger = std::unique_ptr<cpp_redis::logger>(new cpp_redis::logger(cpp_redis::logger::log_level::debug));
     cpp_redis::client client;
     client.connect("140.143.15.163", 6379, [=](const std::string& host, std::size_t port, cpp_redis::client::connect_state status){
@@ -48,11 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     client.get("tencent", [](const cpp_redis::reply & reply){
         qDebug() << reply.as_string().c_str();
     });
-    client.sync_commit();
+    client.sync_commit();*/
 
-#ifdef _WIN32
-    //WSACleanup();
-#endif /* _WIN32 */
+
 }
 
 MainWindow::~MainWindow()
@@ -62,19 +55,24 @@ MainWindow::~MainWindow()
 void MainWindow::initMainWindow()
 {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |
+    this->setWindowFlags(Qt::Window |
+                         Qt::FramelessWindowHint |
                          Qt::WindowSystemMenuHint |
                          Qt::WindowMaximizeButtonHint |
                          Qt::WindowMinimizeButtonHint);
     QString base_dir = QDir::currentPath();
     this->m_btnTop_normal = Common::read(base_dir + QString(QStringLiteral("/style/top.qss")));
     this->m_btnTop_handled = Common::read(base_dir + QString(QStringLiteral("/style/top-handled.qss")));
+    auto item = new QListWidgetItem(this->ui->listWnd);
+    this->ui->listWnd->addItem(item);
+    this->ui->listWnd->setItemWidget(item, new SessionItem());
 }
 
 void MainWindow::initMainSignals()
 {
-    QObject::connect(this->ui->BtnClose, &QPushButton::clicked, this, [](){
+    QObject::connect(this->ui->BtnClose, &QPushButton::clicked, this, [this](){
         // quit之前需要释放某些资源
+        this->onClose();
         QApplication::quit();
     });
 
@@ -106,4 +104,22 @@ void MainWindow::initMainSignals()
             this->m_wndMax = true;
         }
     });
+}
+
+void MainWindow::onStart()
+{
+#ifdef Q_OS_WIN
+    WORD version = MAKEWORD(2, 2);
+    WSADATA data = { 0 };
+
+    if (WSAStartup(version, &data) != 0) {
+        qDebug() << "windows network init failed.";
+    }
+#endif
+}
+void MainWindow::onClose()
+{
+#ifdef _WIN32
+    WSACleanup();
+#endif /* _WIN32 */
 }
